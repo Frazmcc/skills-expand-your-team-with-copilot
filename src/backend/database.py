@@ -41,6 +41,7 @@ initial_activities = {
             "end_time": "16:45"
         },
         "max_participants": 12,
+        "difficulty": "Intermediate",
         "participants": ["michael@mergington.edu", "daniel@mergington.edu"]
     },
     "Programming Class": {
@@ -52,6 +53,7 @@ initial_activities = {
             "end_time": "08:00"
         },
         "max_participants": 20,
+        "difficulty": "Beginner",
         "participants": ["emma@mergington.edu", "sophia@mergington.edu"]
     },
     "Morning Fitness": {
