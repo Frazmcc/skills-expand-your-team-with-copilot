@@ -1,3 +1,39 @@
+// Dark/light mode toggle (choice is saved in the browser)
+(function setupThemeToggle() {
+  const toggle = document.getElementById("theme-toggle");
+  const icon = document.getElementById("theme-toggle-icon");
+  const root = document.documentElement;
+
+  function applyTheme(theme) {
+    const isDark = theme === "dark";
+    if (isDark) {
+      root.setAttribute("data-theme", "dark");
+    } else {
+      root.removeAttribute("data-theme");
+    }
+    icon.textContent = isDark ? "☀️" : "🌙";
+    toggle.setAttribute("aria-pressed", String(isDark));
+    toggle.setAttribute(
+      "aria-label",
+      isDark ? "Switch to light mode" : "Switch to dark mode"
+    );
+  }
+
+  let saved = null;
+  try {
+    saved = localStorage.getItem("theme");
+  } catch (e) {}
+  applyTheme(saved === "dark" ? "dark" : "light");
+
+  toggle.addEventListener("click", () => {
+    const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    applyTheme(next);
+    try {
+      localStorage.setItem("theme", next);
+    } catch (e) {}
+  });
+})();
+
 document.addEventListener("DOMContentLoaded", () => {
   // DOM elements
   const activitiesList = document.getElementById("activities-list");
