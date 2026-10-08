@@ -32,6 +32,37 @@
   --info-light: #d1ecf1;
 }
 
+/* Dark mode colors */
+[data-theme="dark"] {
+  --primary: #3949ab;
+  --primary-light: #7986cb;
+  --primary-dark: #1a237e;
+  --background: #121212;
+  --surface: #1e1e1e;
+  --text-primary: #e8e8e8;
+  --text-secondary: #b0b0b0;
+  --border: #3a3a3a;
+  --border-light: #2c2c2c;
+  --border-focus: #555555;
+  --success-light: #1b3a1e;
+  --warning-light: #4a3b10;
+  --error-light: #4a1c1c;
+  --info-light: #12333a;
+  color-scheme: dark;
+}
+
+[data-theme="dark"] body,
+[data-theme="dark"] input,
+[data-theme="dark"] select,
+[data-theme="dark"] textarea {
+  background-color: var(--surface);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] body {
+  background-color: var(--background);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -614,6 +645,9 @@ footer {
 
 /* User controls in header */
 #user-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   position: absolute;
   top: 10px;
   right: 15px;
@@ -692,4 +726,20 @@ footer {
 
 .share-button:hover {
   background: #e0e0e0;
+}
+
+/* Dark mode fixes for hard-coded colors */
+[data-theme="dark"] .share-button {
+  background: var(--surface);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .share-button:hover {
+  background: var(--border);
+}
+
+[data-theme="dark"] .activity-tag {
+  background: #283593;
+  color: #c5cae9;
 }
