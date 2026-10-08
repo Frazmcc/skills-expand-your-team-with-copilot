@@ -552,6 +552,13 @@ document.addEventListener("DOMContentLoaded", () => {
             .join("")}
         </ul>
       </div>
+      <div class="share-buttons">
+        <span class="share-label">Share:</span>
+        <a class="share-button" data-network="facebook" target="_blank" rel="noopener noreferrer" title="Share on Facebook">Facebook</a>
+        <a class="share-button" data-network="twitter" target="_blank" rel="noopener noreferrer" title="Share on X">X</a>
+        <a class="share-button" data-network="email" title="Share by email">Email</a>
+        <button type="button" class="share-button" data-network="copy" title="Copy link">Copy link</button>
+      </div>
       <div class="activity-card-actions">
         ${
           currentUser
@@ -570,6 +577,28 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       </div>
     `;
+
+    // Set up share buttons
+    const pageUrl = window.location.href.split("#")[0];
+    const shareText = `Check out ${name} at Mergington High School: ${details.description}`;
+    const links = {
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}&quote=${encodeURIComponent(shareText)}`,
+      twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(pageUrl)}`,
+      email: `mailto:?subject=${encodeURIComponent(name)}&body=${encodeURIComponent(shareText + "\n" + pageUrl)}`,
+    };
+    activityCard.querySelectorAll("a.share-button").forEach((link) => {
+      link.href = links[link.dataset.network];
+    });
+    const copyButton = activityCard.querySelector('button[data-network="copy"]');
+    copyButton.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(`${shareText} ${pageUrl}`);
+        copyButton.textContent = "Copied!";
+      } catch (e) {
+        copyButton.textContent = "Copy failed";
+      }
+      setTimeout(() => (copyButton.textContent = "Copy link"), 2000);
+    });
 
     // Add click handlers for delete buttons
     const deleteButtons = activityCard.querySelectorAll(".delete-participant");
