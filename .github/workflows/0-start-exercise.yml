@@ -18,7 +18,7 @@ jobs:
     if: |
       !github.event.repository.is_template
     name: Start Exercise
-    uses: skills/exercise-toolkit/.github/workflows/start-exercise.yml@v0.9.1
+    uses: skills/exercise-toolkit/.github/workflows/start-exercise.yml@eca07ac3f4900e6112150366ac9e89cdf09e30e6 # v0.9.1
     with:
       exercise-title: "Expand your team with Copilot cloud agent"
       intro-message: "In this exercise, you'll unlock the next level of your favorite AI-powered coding assistant. Let's learn how to delegate tasks to Copilot cloud agent directly in GitHub! 💻✨"
@@ -33,19 +33,19 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: main
 
       - name: Get response templates
-        uses: actions/checkout@v5
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
           ref: v0.9.1
 
       - name: Create comment - add step content
-        uses: GrantBirki/comment@v2.1.1
+        uses: GrantBirki/comment@608e41b19bc973020ec0e189ebfdae935d7fe0cc # v2.1.1
         with:
           repository: ${{ env.ISSUE_REPOSITORY }}
           issue-number: ${{ env.ISSUE_NUMBER }}
@@ -55,7 +55,7 @@ jobs:
             full_repo_name: ${{ github.repository }}
 
       - name: Create comment - watching for progress
-        uses: GrantBirki/comment@v2.1.1
+        uses: GrantBirki/comment@608e41b19bc973020ec0e189ebfdae935d7fe0cc # v2.1.1
         with:
           repository: ${{ env.ISSUE_REPOSITORY }}
           issue-number: ${{ env.ISSUE_NUMBER }}
