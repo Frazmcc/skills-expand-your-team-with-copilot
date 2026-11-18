@@ -18,7 +18,7 @@ env:
 jobs:
   find_exercise:
     name: Find Exercise Issue
-    uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@v0.9.1
+    uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@eca07ac3f4900e6112150366ac9e89cdf09e30e6 # v0.9.1
 
   check_step_work:
     name: Check step work
@@ -30,10 +30,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Get response templates
-        uses: actions/checkout@v5
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
@@ -41,14 +41,14 @@ jobs:
 
       - name: Find last comment
         id: find-last-comment
-        uses: peter-evans/find-comment@v3
+        uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e # v3
         with:
           repository: ${{ env.ISSUE_REPOSITORY }}
           issue-number: ${{ env.ISSUE_NUMBER }}
           direction: last
 
       - name: Update comment - checking work
-        uses: GrantBirki/comment@v2.1.1
+        uses: GrantBirki/comment@608e41b19bc973020ec0e189ebfdae935d7fe0cc # v2.1.1
         with:
           repository: ${{ env.ISSUE_REPOSITORY }}
           issue-number: ${{ env.ISSUE_NUMBER }}
@@ -59,12 +59,12 @@ jobs:
 
       - name: Check file changes
         id: changed-files
-        uses: tj-actions/changed-files@v46.0.5
+        uses: tj-actions/changed-files@ed68ef82c095e0d48ec87eccea555d944a631a4c # v46.0.5
 
       - name: Check copilot-instructions.md
         id: check-instructions
         continue-on-error: true
-        uses: actions/github-script@v8
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         with:
           script: |
             const changedFiles = '${{ steps.changed-files.outputs.all_changed_files }}'.split(' ');
@@ -83,7 +83,7 @@ jobs:
       - name: Check copilot-setup-steps.yml
         id: check-setup-steps
         continue-on-error: true
-        uses: actions/github-script@v8
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         with:
           script: |
             const changedFiles = '${{ steps.changed-files.outputs.all_changed_files }}'.split(' ');
@@ -100,7 +100,7 @@ jobs:
             core.setOutput('STEP_MESSAGE', message);
 
       - name: Update comment - step results
-        uses: GrantBirki/comment@v2.1.1
+        uses: GrantBirki/comment@608e41b19bc973020ec0e189ebfdae935d7fe0cc # v2.1.1
         with:
           repository: ${{ env.ISSUE_REPOSITORY }}
           issue-number: ${{ env.ISSUE_NUMBER }}
@@ -131,17 +131,17 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Get response templates
-        uses: actions/checkout@v5
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
           ref: v0.9.1
 
       - name: Create comment - step finished
-        uses: GrantBirki/comment@v2.1.1
+        uses: GrantBirki/comment@608e41b19bc973020ec0e189ebfdae935d7fe0cc # v2.1.1
         with:
           repository: ${{ env.ISSUE_REPOSITORY }}
           issue-number: ${{ env.ISSUE_NUMBER }}
@@ -150,7 +150,7 @@ jobs:
             next_step_number: 4
 
       - name: Create comment - add step content
-        uses: GrantBirki/comment@v2.1.1
+        uses: GrantBirki/comment@608e41b19bc973020ec0e189ebfdae935d7fe0cc # v2.1.1
         with:
           repository: ${{ env.ISSUE_REPOSITORY }}
           issue-number: ${{ env.ISSUE_NUMBER }}
@@ -159,7 +159,7 @@ jobs:
             full_repo_name: ${{ github.repository }}
 
       - name: Create comment - watching for progress
-        uses: GrantBirki/comment@v2.1.1
+        uses: GrantBirki/comment@608e41b19bc973020ec0e189ebfdae935d7fe0cc # v2.1.1
         with:
           repository: ${{ env.ISSUE_REPOSITORY }}
           issue-number: ${{ env.ISSUE_NUMBER }}

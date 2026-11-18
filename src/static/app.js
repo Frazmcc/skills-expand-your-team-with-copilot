@@ -1,3 +1,12 @@
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
 // Dark/light mode toggle (choice is saved in the browser)
 (function setupThemeToggle() {
   const toggle = document.getElementById("theme-toggle");
@@ -571,16 +580,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Only show difficulty when the activity specifies one
     const difficultyHtml = details.difficulty
-      ? `<p class="activity-difficulty"><strong>Difficulty:</strong> ${details.difficulty}</p>`
+      ? `<p class="activity-difficulty"><strong>Difficulty:</strong> ${escapeHtml(details.difficulty)}</p>`
       : "";
 
     activityCard.innerHTML = `
       ${tagHtml}
-      <h4>${name}</h4>
-      <p>${details.description}</p>
+      <h4>${escapeHtml(name)}</h4>
+      <p>${escapeHtml(details.description)}</p>
       ${difficultyHtml}
       <p class="tooltip">
-        <strong>Schedule:</strong> ${formattedSchedule}
+        <strong>Schedule:</strong> ${escapeHtml(formattedSchedule)}
         <span class="tooltip-text">Regular meetings at this time throughout the semester</span>
       </p>
       ${capacityIndicator}
@@ -591,11 +600,11 @@ document.addEventListener("DOMContentLoaded", () => {
             .map(
               (email) => `
             <li>
-              ${email}
+              ${escapeHtml(email)}
               ${
                 currentUser
                   ? `
-                <span class="delete-participant tooltip" data-activity="${name}" data-email="${email}">
+                <span class="delete-participant tooltip" data-activity="${escapeHtml(name)}" data-email="${escapeHtml(email)}">
                   ✖
                   <span class="tooltip-text">Unregister this student</span>
                 </span>
@@ -619,7 +628,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ${
           currentUser
             ? `
-          <button class="register-button" data-activity="${name}" ${
+          <button class="register-button" data-activity="${escapeHtml(name)}" ${
                 isFull ? "disabled" : ""
               }>
             ${isFull ? "Activity Full" : "Register Student"}
@@ -636,7 +645,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Set up share buttons
     const pageUrl = window.location.href.split("#")[0];
-    const shareText = `Check out ${name} at Mergington High School: ${details.description}`;
+    const shareText = `Check out ${name} at Mergington High School: ${escapeHtml(details.description)}`;
     const links = {
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}&quote=${encodeURIComponent(shareText)}`,
       twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(pageUrl)}`,
